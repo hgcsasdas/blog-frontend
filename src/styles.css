@@ -1,0 +1,79 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .bg-gradient-animate {
+    background: linear-gradient(270deg, #19256D, #8093D8);
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+  }
+
+  @keyframes gradientAnimation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .bubble {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: bubbleAnimation 6s ease-in-out infinite;
+  }
+
+  .bubble-1 {
+    width: 60px;
+    height: 60px;
+    background-color: rgba(255, 255, 255, 0.5);
+    bottom: 10%;
+    left: 20%;
+    animation-duration: 8s;
+  }
+
+  .bubble-2 {
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.5);
+    bottom: 30%;
+    right: 15%;
+    animation-duration: 7s;
+  }
+
+  .bubble-3 {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(255, 255, 255, 0.5);
+    top: 25%;
+    left: 10%;
+    animation-duration: 6s;
+  }
+
+  .bubble-4 {
+    width: 70px;
+    height: 70px;
+    background-color: rgba(255, 255, 255, 0.5);
+    top: 10%;
+    right: 20%;
+    animation-duration: 9s;
+  }
+
+  @keyframes bubbleAnimation {
+    0% {
+      transform: translateY(0) scale(1);
+    }
+    50% {
+      transform: translateY(-20px) scale(1.1);
+    }
+    100% {
+      transform: translateY(0) scale(1);
+    }
+  }
+}

@@ -1,0 +1,47 @@
+<div class="min-h-screen hero bg-primary2">
+  <!-- Parte de la animación -->
+  <div class="ripple-background">
+    <div class="circle xxlarge shade1"></div>
+    <div class="circle xlarge shade2"></div>
+    <div class="circle large shade3"></div>
+    <div class="circle medium shade4"></div>
+    <div class="circle small shade5"></div>
+  </div>
+
+  <!-- Contenido del componente -->
+  <div class="flex-col hero-content lg:flex-row-reverse">
+    <div class="text-center lg:text-left text-opposite2">
+      <h1 class="text-5xl font-bold">Bienvenido a BlogPi</h1>
+      <p class="py-6 text-xl">
+        Libera tu creatividad. Comparte tus historias. Conéctate con el mundo.
+      </p>
+      <p class="py-2 text-lg">
+        BlogPi es más que una plataforma de blogs. Es tu espacio para
+        expresarte, interactuar con tu audiencia y marcar la diferencia.
+      </p>
+      <p class="py-2 text-lg">
+        Comienza tu viaje hoy y únete a una comunidad de bloggers apasionados.
+      </p>
+      @if (!isLoggedIn) {
+
+      <p class="py-2 text-lg">
+        Si no tienes cuenta regístrate
+        <a routerLink="/registro" class="text-opposite"> aquí</a>
+      </p>
+      } @if (isLoggedIn) {
+
+      <a routerLink="/blogs" class="btn normal-case text-xl text-primary"
+        >Blogs</a
+      >
+      }
+    </div>
+    @if (!isLoggedIn) {
+
+    <div class="w-full max-w-sm shadow-2xl card shrink-0 bg-base-100">
+      <form class="card-body">
+        <app-form-log-in></app-form-log-in>
+      </form>
+    </div>
+    }
+  </div>
+</div>

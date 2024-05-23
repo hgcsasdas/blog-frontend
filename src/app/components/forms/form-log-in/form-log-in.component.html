@@ -1,0 +1,61 @@
+<form class="w-full max-w-md p-6 bg-white">
+  <h2 class="mb-6 text-2xl font-bold">Iniciar sesión</h2>
+
+  <div class="mb-4">
+    <label class="block mb-2 text-sm font-bold text-gray-700" for="user">
+      Correo electrónico:
+    </label>
+    <input
+      class="w-full px-3 py-2 leading-tight text-gray-700 border rounded appearance-none focus:outline-none focus:shadow-outline"
+      id="user"
+      type="email"
+      placeholder="Correo electrónico"
+      [formControl]="user"
+    />
+
+    @if (user.touched && user.errors){
+      <div
+        class="mt-1 text-xs text-red-500"
+      >
+        {{ "Usuario requerido." }}
+      </div>    }
+  </div>
+
+  <div class="mb-4">
+    <label class="block mb-2 text-sm font-bold text-gray-700" for="password">
+      Contraseña:
+    </label>
+    <input
+      class="w-full px-3 py-2 leading-tight text-gray-700 border rounded appearance-none focus:outline-none focus:shadow-outline"
+      id="password"
+      type="password"
+      placeholder="Contraseña"
+      [formControl]="password"
+    />
+
+    @if (password.touched && password.errors){
+      <div
+        class="mt-1 text-xs text-red-500"
+      >
+        {{ "Contraseña requerida." }}
+      </div>
+
+    }
+  </div>
+
+  <div class="flex items-center justify-center w-full">
+    <button
+      class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+      type="button"
+      (click)="login()"
+    >
+      Iniciar sesión
+    </button>
+  </div>
+  @if (loginError) {
+
+    <div class="mt-4 text-sm text-red-500">
+      {{ loginError }}
+    </div>
+  }
+</form>

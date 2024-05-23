@@ -1,0 +1,55 @@
+<div
+  class="w-full h-[95dvh] bg-gradient-animate flex items-center justify-center overflow-hidden"
+>
+  <div class="w-full max-w-4xl flex justify-center items-center space-x-10">
+    <div class="w-1/2 p-8 bg-white rounded-lg shadow-lg">
+      <div class="">
+        <img src="./assets/imgs/logo/logo_ico.png" alt="Logo" class="h-20" />
+      </div>
+      @if (!login) {
+      <app-form-log-in></app-form-log-in>
+      } @else if(login) {
+
+      <app-form-register></app-form-register>
+      }
+      <button (click)="toggleCard()" class="btn mt-4">
+        {{ login ? "Iniciar sesión" : "Registrarse" }}
+      </button>
+    </div>
+
+    <div class="w-1/2 p-8 bg-white rounded-lg shadow-lg">
+      @if (!login) {
+
+      <div class="text-center">
+        <h2 class="text-2xl font-bold mb-4">Bienvenido de nuevo</h2>
+        <p class="text-gray-600 mb-4">
+          Vuelva a entrar al mejor portal de blogs y manténgase al día con las
+          últimas noticias y artículos.
+        </p>
+        <p class="text-gray-600">
+          Disfrute de una experiencia personalizada y de todas las funciones
+          exclusivas solo para usuarios registrados.
+        </p>
+      </div>
+      } @else if(login) {
+      <div class="text-center">
+        <h2 class="text-2xl font-bold mb-4">Únete a nuestra comunidad</h2>
+        <p class="text-gray-600 mb-4">
+          Regístrate y sé parte de nuestra creciente comunidad de bloggers.
+          Comparte tus ideas y aprende de otros.
+        </p>
+        <p class="text-gray-600">
+          Obtén acceso a contenido exclusivo y a todas las funcionalidades del
+          portal. ¡No te lo pierdas!
+        </p>
+      </div>
+      }
+    </div>
+  </div>
+
+  <!-- Burbujas animadas -->
+  <div class="bubble bubble-1"></div>
+  <div class="bubble bubble-2"></div>
+  <div class="bubble bubble-3"></div>
+  <div class="bubble bubble-4"></div>
+</div>
