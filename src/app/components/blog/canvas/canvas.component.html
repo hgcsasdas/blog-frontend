@@ -1,0 +1,35 @@
+<h3 class="text-lg font-semibold">Blog</h3>
+<div
+  class="border-2 border-dashed border-gray-300 p-4 h-full overflow-y-auto w-full whitespace-pre-line"
+>
+  <div class="mb-4 p-2 border rounded" cdkDrag>
+
+    @for (component of canvasComponents; track component.id) {
+    <ng-container [ngSwitch]="component.type" class="indent-0">
+      <div
+        *ngSwitchCase="'Text'"
+        [innerHTML]="component.html"
+        class="w-full indent-0"
+        (click)="selectComponent(component)"
+      ></div>
+      <div
+        *ngSwitchCase="'Title'"
+        [innerHTML]="component.html"
+        class="w-full indent-0"
+        (click)="selectComponent(component)"
+      ></div>
+      <div
+        *ngSwitchCase="'List'"
+        [innerHTML]="component.html"
+        class="w-full indent-0"
+        (click)="selectComponent(component)"
+      ></div>
+    </ng-container>
+    }
+  </div>
+</div>
+<app-component-details-popup
+  [component]="selectedComponent"
+  (close)="closePopup()"
+  (save)="saveComponent($event)"
+></app-component-details-popup>

@@ -1,1 +1,46 @@
-<p>blogs works!</p>
+<div class="flex flex-col h-[95dvh] p-8">
+  <input
+    type="text"
+    [(ngModel)]="searchQuery"
+    placeholder="Buscar blogs"
+    class="input input-primary mt-4"
+  />
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+    @for (blog of displayedBlogs; track blog.id) {
+
+    <div
+      class="card bg-white shadow-lg rounded-lg p-6 transition-transform transform hover:scale-105"
+    >
+      <h2 class="text-2xl font-bold mb-4">{{ blog.title }}</h2>
+      <div class="flex flex-wrap">
+        <p class="text-gray-500 m-2 badge badge-outline badge-success">
+          Likes: {{ blog.likes }}
+        </p>
+        <p class="text-gray-500 m-2 badge badge-outline badge-error">
+          Dislikes: {{ blog.dislikes }}
+        </p>
+        <p class="text-gray-500 m-2 badge badge-outline">
+          Fecha de creación: {{ blog.creationDate | date }}
+        </p>
+      </div>
+    </div>
+    }
+  </div>
+
+  <div class="pagination mt-6 flex justify-center">
+    <button
+      class="btn btn-primary mx-2"
+      (click)="previousPage()"
+      [disabled]="currentPage === 1"
+    >
+      Anterior
+    </button>
+    <button
+      class="btn btn-primary mx-2"
+      (click)="nextPage()"
+      [disabled]="currentPage === totalPages"
+    >
+      Siguiente
+    </button>
+  </div>
+</div>

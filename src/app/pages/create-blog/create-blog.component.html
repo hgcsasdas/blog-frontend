@@ -1,1 +1,18 @@
-<p>create-blog works!</p>
+<div class="flex flex-col h-[95dvh] p-8">
+  <div class="">
+
+    <button (click)="saveBlog()" class="bg-blue-500 text-white py-2 px-4 rounded mt-4">Guardar Blog</button>
+  </div>
+  <div class="flex h-full">
+
+  <div class="w-1/4 p-4 ">
+    <app-component-menu (addComponent)="addComponent($event)"></app-component-menu>
+  </div>
+  <div class="w-1/2 p-4 ">
+    <app-canvas [canvasComponents]="canvasComponents"></app-canvas>
+  </div>
+  <div class="w-1/4 p-4 ">
+    <app-component-list [canvasComponents]="canvasComponents"></app-component-list>
+  </div>
+</div>
+</div>

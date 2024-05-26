@@ -1,0 +1,33 @@
+@if (component) {
+  <div
+    class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50"
+  >
+    <div class="bg-white p-6 rounded-lg shadow-lg w-3/4">
+      <h2 class="text-xl font-bold mb-4">Component Details</h2>
+      <p><strong>Type:</strong> {{ component.type }}</p>
+      <p><strong>Capabilities:</strong> {{ component.capabilities }}</p>
+      <p><strong>HTML:</strong></p>
+      <div
+        class="border p-2 mt-2 rounded w-full"
+        contenteditable="true"
+        id="contenteditable"
+        [innerHTML]="componentHtml"
+      ></div>
+
+      <div class="flex justify-end mt-4">
+        <button
+          (click)="saveChanges()"
+          class="bg-green-500 btn text-white p-4 "
+        >
+          Save
+        </button>
+        <button
+          (click)="close.emit()"
+          class="bg-blue-500 text-white py-2 px-4 rounded"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+}

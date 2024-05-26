@@ -6,6 +6,7 @@ import { RegistroComponent } from './pages/registro/registro.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { BlogsComponent } from './pages/blogs/blogs.component';
+import { CreateBlogComponent } from './pages/create-blog/create-blog.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
@@ -15,6 +16,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'registro',  component: RegistroComponent},
   { path: 'blogs', component: BlogsComponent},
+  { path: 'create-blog', component: CreateBlogComponent},
   { path: 'admin', component: AdminComponent},
   { path: 'not-found', component: NotFoundComponent},
 
