@@ -19,7 +19,7 @@ import { LoginService } from '../auth/login.service';
 export class BlogService {
   private baseUrl = environment.urlApi + 'users/api/blogs';
 
-  constructor(private http: HttpClient, private loginService: LoginService) {}
+  constructor(private http: HttpClient) {}
 
   createBlog(blog: BlogDto): Observable<TokenMessageResponse> {
 

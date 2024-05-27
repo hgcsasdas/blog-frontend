@@ -1,0 +1,16 @@
+<div class="flex items-center">
+  <button
+    class="btn btn-outline btn-primary mr-2"
+    [class.btn-primary]="liked"
+    (click)="toggleLike()"
+  >
+    Like
+  </button>
+  <button
+    class="btn btn-outline btn-secondary"
+    [class.btn-secondary]="disliked"
+    (click)="toggleDislike()"
+  >
+    Dislike
+  </button>
+</div>

@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BlogService } from '../../services/blogs/blog.service';
 import { FormsModule } from '@angular/forms'; // Import FormsModule for ngModel
+import { RouterLink, Router } from '@angular/router'; // Import Router
 
 @Component({
   selector: 'app-blogs',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './blogs.component.html',
   styleUrls: ['./blogs.component.css'],
 })
@@ -18,7 +19,8 @@ export class BlogsComponent implements OnInit {
   itemsPerPage: number = 9;
   totalPages: number = 1;
 
-  constructor(private blogService: BlogService) {}
+  // Inject Router here
+  constructor(private blogService: BlogService, private router: Router) {}
 
   ngOnInit() {
     this.blogService.getAllBlogs().subscribe({
@@ -43,6 +45,10 @@ export class BlogsComponent implements OnInit {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     this.displayedBlogs = filteredBlogs.slice(startIndex, endIndex);
+  }
+
+  seeBlog(id: string) {
+    this.router.navigate(['/blog', id]);
   }
 
   filterBlogs(blogs: any[], query: string): any[] {
