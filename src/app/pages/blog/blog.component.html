@@ -1,18 +1,26 @@
 <div class="flex w-full h-[95dvh] min-h-screen bg-gray-100 p-4">
   @if (blog) {
 
-  <div class="w-full max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6">
+  <div class="w-full max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6 overflow-y-auto">
     <div class="flex items-center mb-4">
-      <span class="badge badge-primary mr-2">Autor del blog: {{ blog.author }}</span>
+      <span class="badge badge-primary mr-2"
+        >Autor del blog: {{ blog.author }}</span
+      >
       <span class="badge badge-accent">fecha: {{ blog.date }}</span>
     </div>
     <h1 class="text-3xl font-bold text-gray-900 mb-4">{{ blog.title }}</h1>
     @for (content of blogContent; track content.id) {
 
-      <div [innerHTML]="content.html"></div>
+    <div [innerHTML]="content.html"></div>
     }
 
     <app-liking-system [blogId]="blogId"></app-liking-system>
+    <app-comment-section
+      [blogId]="blogId"
+      [comments]="comments"
+      (commentsChanged)="onCommentsChanged()"
+    >
+    </app-comment-section>
   </div>
   } @else {
 
