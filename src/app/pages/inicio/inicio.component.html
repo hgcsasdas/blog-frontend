@@ -24,10 +24,12 @@
       </p>
       @if (!isLoggedIn) {
 
-      <p class="py-2 text-lg">
-        Si no tienes cuenta regístrate
-        <a routerLink="/registro" class="text-opposite"> aquí</a>
-      </p>
+        <div class="flex  items-center gap-1">
+          <p class="py-2 text-lg">Si no tienes cuenta regístrate</p>
+          <div class="animate-bounce hover:animate-none transition">
+            <a routerLink="/registro" class="text-opposite"> aquí</a>
+          </div>
+        </div>
       } @if (isLoggedIn) {
 
       <a routerLink="/blogs" class="btn normal-case text-xl text-primary"
@@ -35,6 +37,7 @@
       >
       }
     </div>
+
     @if (!isLoggedIn) {
 
     <div class="w-full max-w-sm shadow-2xl card shrink-0 bg-base-100">

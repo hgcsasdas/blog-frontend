@@ -20,7 +20,10 @@ export class CommentSectionComponent implements OnInit {
   @Input() comments: any[] = [];
   @Output() commentsChanged = new EventEmitter<void>();
   commentForm!: FormGroup;
+  updateForm!: FormGroup;
   username!: string;
+  isModalOpen = false;
+  commentToUpdate: any;
 
   constructor(
     private commentService: CommentService,
@@ -30,6 +33,9 @@ export class CommentSectionComponent implements OnInit {
   ngOnInit() {
     this.username = sessionStorage.getItem('username') ?? '';
     this.commentForm = this.fb.group({
+      content: [''],
+    });
+    this.updateForm = this.fb.group({
       content: [''],
     });
   }
@@ -44,22 +50,17 @@ export class CommentSectionComponent implements OnInit {
       (response) => {
         this.commentsChanged.emit();
         this.commentForm.reset();
-        // if (response.success) {
-        // } else {
-        //   console.error('Error adding comment:', response.message);
-        // }
       },
       (error) => console.error('Error adding comment:', error)
     );
   }
 
-  deleteComment(index: number) {
-    const comment = this.comments[index];
+  deleteComment(index: string, author: string) {
     this.commentService
-      .deleteComment(comment.author, { author: comment.author })
+      .deleteComment(index, author, this.blogId)
       .subscribe(
         (response) => {
-          if (response.success) {
+          if (response.done) {
             this.commentsChanged.emit();
           } else {
             console.error('Error deleting comment:', response.message);
@@ -69,19 +70,33 @@ export class CommentSectionComponent implements OnInit {
       );
   }
 
-  updateComment(index: number, newContent: string) {
-    const comment = this.comments[index];
-    this.commentService
-      .updateComment(comment.author, { content: newContent })
-      .subscribe(
-        (response) => {
-          if (response.success) {
-            this.commentsChanged.emit();
-          } else {
-            console.error('Error updating comment:', response.message);
-          }
-        },
-        (error) => console.error('Error updating comment:', error)
-      );
+  openUpdateModal(comment: any) {
+    this.isModalOpen = true;
+    this.commentToUpdate = comment;
+    this.updateForm.patchValue({ content: comment.content });
+  }
+
+  closeUpdateModal() {
+    this.isModalOpen = false;
+    this.commentToUpdate = null;
+  }
+
+  submitUpdate() {
+    if (this.updateForm.valid) {
+      const updatedContent = this.updateForm.value.content;
+      this.commentService
+        .updateComment(this.commentToUpdate.id, updatedContent, this.username, this.blogId)
+        .subscribe(
+          (response) => {
+            if (response.done) {
+              this.commentsChanged.emit();
+              this.closeUpdateModal();
+            } else {
+              console.error('Error updating comment:', response.message);
+            }
+          },
+          (error) => console.error('Error updating comment:', error)
+        );
+    }
   }
 }
