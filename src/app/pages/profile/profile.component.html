@@ -1,1 +1,23 @@
-<p>profile works!</p>
+<div class="h-[95dvh] max-w-3xl mx-auto p-6 m-4 bg-white rounded-lg shadow-md">
+  <div class="flex items-center space-x-4 m-4">
+    <img [src]="profile?.avatarUrl" alt="Avatar" class="w-16 h-16 rounded-full">
+    <div>
+      <h1 class="text-2xl font-bold">{{ profile?.name }}</h1>
+      <p class="text-gray-600">{{ profile?.email }}</p>
+    </div>
+  </div>
+  <div class="mb-4">
+    <h2 class="text-xl font-semibold">Bio</h2>
+    <p class="text-gray-700">{{ profile?.bio }}</p>
+  </div>
+  <div class="mb-4">
+    <h2 class="text-xl font-semibold">Location</h2>
+    <p class="text-gray-700">{{ profile?.location }}</p>
+  </div>
+  <div>
+    <h2 class="text-xl font-semibold">Interests</h2>
+    <ul class="list-disc list-inside">
+      <li *ngFor="let interest of profile?.interests" class="text-gray-700">{{ interest }}</li>
+    </ul>
+  </div>
+</div>
