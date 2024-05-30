@@ -15,7 +15,7 @@ export class ProfileService {
     return this.http.get<any>(this.apiUrl);
   }
 
-  getUserBlogs(userId: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/${userId}`);
+  getUserBlogs(user: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/user/${user}`);
   }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   CdkDrag,
   CdkDragDrop,
@@ -12,6 +12,8 @@ import { CanvasComponent } from '../../components/blog/canvas/canvas.component';
 import { Componente } from '../../services/blogs/componentes/componente';
 import { BlogDto } from '../../services/blogs/DTO/BlogDto';
 import { BlogService } from '../../services/blogs/blog.service';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-create-blog',
@@ -22,40 +24,91 @@ import { BlogService } from '../../services/blogs/blog.service';
     ComponentListComponent,
     ComponentMenuComponent,
     CanvasComponent,
+    ReactiveFormsModule,
   ],
   templateUrl: './create-blog.component.html',
-  styleUrl: './create-blog.component.css',
+  styleUrls: ['./create-blog.component.css'],
 })
-export class CreateBlogComponent {
+export class CreateBlogComponent implements OnInit {
   canvasComponents: Componente[] = [];
-  constructor(private blogService: BlogService) {}
+  blogForm: FormGroup;
+  isEditMode: boolean = false;
+  blogId: string | null = null;
+
+  constructor(
+    private blogService: BlogService,
+    private fb: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    this.blogForm = this.fb.group({
+      title: [''],
+    });
+  }
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('idBlog');
+      if (id) {
+        this.isEditMode = true;
+        this.blogId = id;
+        this.loadBlog(id);
+      }
+    });
+  }
+
+  loadBlog(id: string): void {
+    this.blogService.getBlogById(id).subscribe({
+
+      next: (blog) => {
+        console.log('Blog:', blog);
+
+        this.blogForm.patchValue({ title: blog.title });
+        this.canvasComponents = JSON.parse(blog.content);
+      },
+      error: (error) => {
+        console.error('Error loading blog:', error);
+      }
+    });
+  }
 
   addComponent(component: Componente) {
     this.canvasComponents.push(component);
   }
-  saveBlog() {
+
+  saveOrUpdateBlog() {
     const blogDto: BlogDto = {
-      title: 'Holaaa',
-      author: 'Hgc',
+      title: this.blogForm.value.title,
+      author: sessionStorage.getItem('username') || '',
       content: JSON.stringify(this.canvasComponents),
     };
 
-    this.blogService.createBlog(blogDto).subscribe({
-      next: (response) => {
-        if (response.done) {
-          // this.successMessage = response.message;
-          // this.registerForm.reset();
-          console.log('Blog registrado con éxito');
-
-        } else {
-          // this.errorMessage = response.message;
-        }
-      },
-      error: (error) => {
-        console.error(error);
-        // this.errorMessage =
-        //   'Error al registrar. Por favor, inténtalo de nuevo.';
-      },
-    });
+    if (this.isEditMode && this.blogId) {
+      this.blogService.updateBlog(this.blogId, blogDto).subscribe({
+        next: (response) => {
+          if (response.done) {
+            console.log('Blog actualizado con éxito');
+          } else {
+            console.error('Error actualizando el blog:', response.message);
+          }
+        },
+        error: (error) => {
+          console.error('Error al actualizar el blog:', error);
+        },
+      });
+    } else {
+      this.blogService.createBlog(blogDto).subscribe({
+        next: (response) => {
+          if (response.done) {
+            console.log('Blog registrado con éxito');
+          } else {
+            console.error('Error registrando el blog:', response.message);
+          }
+        },
+        error: (error) => {
+          console.error('Error al registrar el blog:', error);
+        },
+      });
+    }
   }
 }

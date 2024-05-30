@@ -1,18 +1,22 @@
 <div class="flex flex-col h-[95dvh] p-8">
   <div class="">
-
-    <button (click)="saveBlog()" class="bg-blue-500 text-white py-2 px-4 rounded mt-4">Guardar Blog</button>
+    <form [formGroup]="blogForm">
+      <label for="title" class="block text-lg font-medium text-gray-700">Título del Blog</label>
+      <input id="title" formControlName="title" type="text" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+    </form>
+    <button (click)="saveOrUpdateBlog()" class="bg-blue-500 text-white py-2 px-4 rounded mt-4">
+      {{ isEditMode ? 'Actualizar Blog' : 'Guardar Blog' }}
+    </button>
   </div>
   <div class="flex h-full">
-
-  <div class="w-1/4 p-4 ">
-    <app-component-menu (addComponent)="addComponent($event)"></app-component-menu>
+    <div class="w-1/4 p-4">
+      <app-component-menu (addComponent)="addComponent($event)"></app-component-menu>
+    </div>
+    <div class="w-1/2 p-4">
+      <app-canvas [canvasComponents]="canvasComponents"></app-canvas>
+    </div>
+    <div class="w-1/4 p-4">
+      <app-component-list [canvasComponents]="canvasComponents"></app-component-list>
+    </div>
   </div>
-  <div class="w-1/2 p-4 ">
-    <app-canvas [canvasComponents]="canvasComponents"></app-canvas>
-  </div>
-  <div class="w-1/4 p-4 ">
-    <app-component-list [canvasComponents]="canvasComponents"></app-component-list>
-  </div>
-</div>
 </div>

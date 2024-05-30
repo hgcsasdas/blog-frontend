@@ -19,6 +19,7 @@ export const routes: Routes = [
   { path: 'blogs', component: BlogsComponent },
   { path: 'blog/:blog', component: BlogComponent },
   { path: 'create-blog', component: CreateBlogComponent },
+  { path: 'create-blog/:idBlog', component: CreateBlogComponent },
   { path: 'admin', component: AdminComponent },
   { path: 'profile', component: ProfileComponent},
   { path: 'not-found', component: NotFoundComponent },
