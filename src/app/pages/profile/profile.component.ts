@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class ProfileComponent implements OnInit {
   profile: any = null;
   userBlogs: any[] = [];
-
+  showApiKey: boolean = false;
   constructor(
     private profileService: ProfileService,
     private router: Router
