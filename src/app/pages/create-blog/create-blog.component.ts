@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {
   CdkDrag,
-  CdkDragDrop,
   CdkDropList,
-  moveItemInArray,
-  transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { ComponentListComponent } from '../../components/blog/component-list/component-list.component';
 import { ComponentMenuComponent } from '../../components/blog/component-menu/component-menu.component';

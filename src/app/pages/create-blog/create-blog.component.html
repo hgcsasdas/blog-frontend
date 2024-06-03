@@ -1,4 +1,4 @@
-<div class="flex flex-col h-[95dvh] p-8">
+<div class="flex flex-col h-[95dvh] p-8 m-4">
   <div class="">
     <form [formGroup]="blogForm">
       <label for="title" class="block text-lg font-medium text-gray-700">Título del Blog</label>
@@ -20,15 +20,46 @@
       </form>
     </dialog>
   </div>
+  <div class=" flex justify-between w-full">
+    <div class="drawer sticky top-8 z-50 my-8">
+      <input id="menu-list" type="checkbox" class="drawer-toggle" />
+      <div class="drawer-content">
+        <!-- Page content here -->
+        <label for="menu-list" class="btn btn-primary drawer-button z-10">Menú items</label>
+      </div>
+      <div class="drawer-side ">
+        <label for="menu-list" aria-label="close sidebar" class="drawer-overlay"></label>
+        <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+          <app-component-menu (addComponent)="addComponent($event)" class="z-50"></app-component-menu>
 
-  <div class="flex h-[90dvh]">
-    <div class="w-1/4 p-4">
+        </ul>
+      </div>
+    </div>
+    <!--  -->
+    <div class="drawer drawer-end  sticky top-8 z-40 my-8">
+      <input id="item-list" type="checkbox" class="drawer-toggle" />
+      <div class="drawer-content">
+        <!-- Page content here -->
+        <label for="item-list" class="btn btn-primary drawer-button z-10">Mis componentes</label>
+      </div>
+      <div class="drawer-side ">
+        <label for="item-list" aria-label="close sidebar" class="drawer-overlay"></label>
+        <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+          <app-component-list [canvasComponents]="canvasComponents"></app-component-list>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="flex h-[90dvh] ">
+    <div class="hidden md:block w-1/4 p-4">
       <app-component-menu (addComponent)="addComponent($event)"></app-component-menu>
     </div>
+
     <div class="w-1/2 p-4">
       <app-canvas [canvasComponents]="canvasComponents"></app-canvas>
     </div>
-    <div class="w-1/4 p-4">
+    <div class="hidden md:block w-1/4 p-4">
       <app-component-list [canvasComponents]="canvasComponents"></app-component-list>
     </div>
   </div>
