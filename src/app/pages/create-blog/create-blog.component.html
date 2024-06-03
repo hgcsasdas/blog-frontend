@@ -2,13 +2,26 @@
   <div class="">
     <form [formGroup]="blogForm">
       <label for="title" class="block text-lg font-medium text-gray-700">Título del Blog</label>
-      <input id="title" formControlName="title" type="text" class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+      <input id="title" formControlName="title" type="text"
+        class="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
     </form>
     <button (click)="saveOrUpdateBlog()" class="bg-blue-500 text-white py-2 px-4 rounded mt-4">
       {{ isEditMode ? 'Actualizar Blog' : 'Guardar Blog' }}
     </button>
+    <!-- Open the modal using ID.showModal() method -->
+    <button class="btn btn-info m-4" onclick="my_modal_2.showModal()">Abrir tutorial</button>
+    <dialog id="my_modal_2" class="modal">
+      <div class="modal-box">
+        <app-tutorial-popup></app-tutorial-popup>
+
+      </div>
+      <form method="dialog" class="modal-backdrop">
+        <button>close</button>
+      </form>
+    </dialog>
   </div>
-  <div class="flex h-full">
+
+  <div class="flex h-[90dvh]">
     <div class="w-1/4 p-4">
       <app-component-menu (addComponent)="addComponent($event)"></app-component-menu>
     </div>

@@ -1,35 +1,36 @@
 <h3 class="text-lg font-semibold">Blog</h3>
-<div
-  class="border-2 border-dashed border-gray-300 p-4 h-full overflow-y-auto w-full whitespace-pre-line"
->
+<div class="border-2 border-dashed border-gray-300 p-4 h-[85%] overflow-y-auto w-full whitespace-pre-line">
   <div class="mb-4 p-2 border rounded" cdkDrag>
-
+    <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 hidden">
+      <p class="font-bold">Be Warned</p>
+      <p>Something not ideal might be happening.</p>
+    </div>
+    <blockquote class="border-l-4 border-gray-500 italic my-4 pl-4 hidden">Cita</blockquote>
+    <hr class="my-4 hidden" />
     @for (component of canvasComponents; track component.id) {
-    <ng-container [ngSwitch]="component.type" class="indent-0">
-      <div
-        *ngSwitchCase="'Text'"
-        [innerHTML]="component.html"
-        class="w-full indent-0"
-        (click)="selectComponent(component)"
-      ></div>
-      <div
-        *ngSwitchCase="'Title'"
-        [innerHTML]="component.html"
-        class="w-full indent-0"
-        (click)="selectComponent(component)"
-      ></div>
-      <div
-        *ngSwitchCase="'List'"
-        [innerHTML]="component.html"
-        class="w-full indent-0"
-        (click)="selectComponent(component)"
-      ></div>
-    </ng-container>
+
+
+    <div [ngSwitch]="component.tipo" class="indent-0">
+      <div *ngSwitchCase="'Texto'" [innerHTML]="component.html" class="w-full indent-0"
+        (click)="selectComponent(component)"></div>
+      <div *ngSwitchCase="'Titulo'" [innerHTML]="component.html" class="w-full indent-0"
+        (click)="selectComponent(component)"></div>
+      <div *ngSwitchCase="'Lista'" [innerHTML]="component.html" class="w-full indent-0"
+        (click)="selectComponent(component)"></div>
+      <div *ngSwitchCase="'Cita'" [innerHTML]="component.html" class="w-full indent-0"
+        (click)="selectComponent(component)"></div>
+      <div *ngSwitchCase="'Code'" [innerHTML]="component.html" class="w-full indent-0"
+        (click)="selectComponent(component)"></div>
+      <div *ngSwitchCase="'Divisor'" [innerHTML]="component.html" class="w-full indent-0"
+        (click)="selectComponent(component)"></div>
+      <div *ngSwitchCase="'Enlace'" [innerHTML]="component.html" class="w-full indent-0"
+        (click)="selectComponent(component)"></div>
+      <div *ngSwitchCase="'Alerta'" [innerHTML]="component.html" class="w-full indent-0"
+        (click)="selectComponent(component)"></div>
+    </div>
+
     }
   </div>
 </div>
-<app-component-details-popup
-  [component]="selectedComponent"
-  (close)="closePopup()"
-  (save)="saveComponent($event)"
-></app-component-details-popup>
+<app-component-details-popup [component]="selectedComponent" (close)="closePopup()"
+  (save)="saveComponent($event)"></app-component-details-popup>

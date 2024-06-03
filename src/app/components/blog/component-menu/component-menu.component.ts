@@ -17,9 +17,9 @@ export class ComponentMenuComponent {
 
   add(componentType: string, capabilities: string, html: string) {
     const component: Componente = {
-      type: componentType,
+      tipo: componentType,
       id: uuidv4(),
-      capabilities: capabilities,
+      capacidades: capabilities,
       html: html
     };
     this.addComponent.emit(component);

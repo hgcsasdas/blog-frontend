@@ -1,13 +1,11 @@
 <!-- component-list.component.html -->
-<h3 class="text-lg font-semibold">Canvas Components</h3>
-<div
-  cdkDropList
-  class="list border-2 border-dashed border-gray-300 p-4 h-full overflow-auto"
-  (cdkDropListDropped)="drop($event)"
->
+<h3 class="text-lg font-semibold">Componentes del blog</h3>
+<div cdkDropList class="list border-2 border-dashed border-gray-300 p-4 h-[85%] overflow-auto"
+  (cdkDropListDropped)="drop($event)">
   @for (component of canvasComponents; track component) {
   <div class="flex mb-2 p-2 bg-gray-100 rounded cursor-pointer" cdkDrag>
-    {{ component.type }}
+    {{ component.tipo }}
+
   </div>
   }
 </div>
