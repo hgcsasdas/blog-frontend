@@ -29,6 +29,8 @@ export class ProfileComponent implements OnInit {
   loadUserBlogs(userId: string): void {
     this.profileService.getUserBlogs(userId).subscribe(
       (blogs) => {
+        console.log('User blogs:', blogs);
+
         this.userBlogs = blogs;
       },
       (error) => {
