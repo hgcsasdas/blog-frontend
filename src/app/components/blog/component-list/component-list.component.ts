@@ -1,13 +1,13 @@
 // component-list.component.ts
 import { Component, Input } from '@angular/core';
-import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { Componente } from '../../../services/blogs/componentes/componente';
 
 @Component({
   selector: 'app-component-list',
   standalone: true,
-  imports: [CdkDrag, CdkDropList, CommonModule],
+  imports: [CdkDrag, CdkDropList, CommonModule, CdkDragHandle],
   templateUrl: './component-list.component.html',
   styleUrls: ['./component-list.component.css']
 })

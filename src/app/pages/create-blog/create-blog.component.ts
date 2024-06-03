@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {
   CdkDrag,
-  CdkDragDrop,
   CdkDropList,
-  moveItemInArray,
-  transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { ComponentListComponent } from '../../components/blog/component-list/component-list.component';
 import { ComponentMenuComponent } from '../../components/blog/component-menu/component-menu.component';
@@ -14,6 +11,7 @@ import { BlogDto } from '../../services/blogs/DTO/BlogDto';
 import { BlogService } from '../../services/blogs/blog.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { TutorialPopupComponent } from '../../components/blog/tutorial-popup/tutorial-popup.component';
 
 @Component({
   selector: 'app-create-blog',
@@ -25,6 +23,7 @@ import { Router, ActivatedRoute } from '@angular/router';
     ComponentMenuComponent,
     CanvasComponent,
     ReactiveFormsModule,
+    TutorialPopupComponent
   ],
   templateUrl: './create-blog.component.html',
   styleUrls: ['./create-blog.component.css'],
