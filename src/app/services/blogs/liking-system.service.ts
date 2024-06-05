@@ -13,6 +13,8 @@ export class LikingSystemService {
   constructor(private http: HttpClient) {}
 
   likeBlog(username: string, blogId: string): Observable<string> {
+    console.log('likeBlog', username, blogId);
+
     return this.http.post(`${this.baseUrl}/like`, { username, blogId }, { responseType: 'text' }).pipe(
       catchError(this.handleError)
     );

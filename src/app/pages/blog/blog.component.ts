@@ -47,6 +47,10 @@ export class BlogComponent implements OnInit {
     this.buscarBlogEnBBDD(this.blogId);
   }
 
+  onLikesChanged() {
+    this.buscarBlogEnBBDD(this.blogId);
+  }
+
   trackById(index: number, item: any): any {
     return item.id;
   }

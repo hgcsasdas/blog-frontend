@@ -1,4 +1,5 @@
 <div class="flex items-center">
+  <span class="mr-2">Likes: {{ likeCount }}</span>
   <button
     class="btn btn-outline btn-primary mr-2"
     [class.btn-primary]="liked"
@@ -6,6 +7,7 @@
   >
     Like
   </button>
+  <span class="mr-2">Dislikes: {{ dislikeCount }}</span>
   <button
     class="btn btn-outline btn-secondary"
     [class.btn-secondary]="disliked"

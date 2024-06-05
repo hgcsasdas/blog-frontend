@@ -1,29 +1,61 @@
-<div class="container mx-auto p-6 m-4 bg-secondary rounded-lg shadow-md">
-  <div class="flex items-center space-x-4 m-4">
-    <div>
-      <h1 class="text-2xl font-bold">{{ profile?.username }}</h1>
-      <p class="text-gray-600">{{ profile?.email }}</p>
-    </div>
-    <div class="relative">
-      <input type="checkbox" id="toggleApiKey" class="hidden">
-      <label for="toggleApiKey" class="bg-gray-300 rounded-full w-14 h-8 flex items-center cursor-pointer">
-        <span class="sr-only">Toggle API Key</span>
-        <span class="block bg-white w-6 h-6 rounded-full shadow-md transform transition-transform duration-300" [class.translate-x-full]="!showApiKey"></span>
-      </label>
-      <div class="absolute top-0 left-0 mt-2 ml-2 text-sm text-gray-600" *ngIf="showApiKey">
-        <p>{{ profile?.apiKey }}</p>
+@if (isLoading) {
+<app-loading-page></app-loading-page>
+
+} @else {
+
+<div
+  class="container h-[85dvh] mx-auto p-6 m-4 bg-base-200 rounded-lg shadow-md"
+>
+  <div class="card bg-base-100 shadow-xl p-4">
+    <div class="flex items-center space-x-4">
+      <div>
+        <h1 class="text-2xl font-bold">Email: {{ profile?.username }}</h1>
+        <p class="text-gray-600">{{ profile?.email }}</p>
+        <p class="text-gray-600">Plan: {{ profile?.plan }}</p>
+        <p class="text-gray-600">Blog Entries: {{ profile?.blogEntries }}</p>
+        <div class="flex items-center space-x-2 mt-4">
+          <span>Show API Key:</span>
+          <input
+            type="checkbox"
+            id="toggleApiKey"
+            class="hidden"
+            (change)="toggleApiKeyVisibility()"
+          />
+          <label
+            for="toggleApiKey"
+            class="bg-gray-300 rounded-full w-14 h-8 flex items-center cursor-pointer"
+          >
+            <span class="sr-only">Toggle API Key</span>
+            <span
+              class="block bg-white w-6 h-6 rounded-full shadow-md transform transition-transform duration-300"
+              [class.translate-x-full]="showApiKey"
+            ></span>
+          </label>
+          <div class="text-sm text-gray-600 ml-4" *ngIf="showApiKey">
+            <div class="card bg-primary text-primary-content p-4">
+              <p>{{ profile?.apiToken }}</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <div class="mt-4">
+
+  <div class="card bg-base-100 shadow-xl mt-4 p-4">
     <h2 class="text-xl font-semibold">My Blogs</h2>
-    <div *ngFor="let blog of userBlogs" class="p-4 mt-2 bg-gray-100 rounded-lg shadow-sm">
+    <div
+      *ngFor="let blog of userBlogs"
+      class="card bg-base-200 shadow-md p-4 mt-2"
+    >
       <h3 class="text-lg font-semibold">{{ blog.title }}</h3>
       <p class="text-gray-600">{{ blog.date }}</p>
       <div class="flex space-x-2 mt-2">
-        <button (click)="editBlog(blog)" class="bg-blue-500 text-white py-1 px-2 rounded">Editar</button>
-        <button (click)="deleteBlog(blog)" class="bg-red-500 text-white py-1 px-2 rounded">Eliminar</button>
+        <button (click)="editBlog(blog)" class="btn btn-primary">Editar</button>
+        <button (click)="deleteBlog(blog)" class="btn btn-error">
+          Eliminar
+        </button>
       </div>
     </div>
   </div>
 </div>
+}

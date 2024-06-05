@@ -1,7 +1,9 @@
 <div class="flex w-full h-[95dvh] min-h-screen bg-gray-100 p-4">
   @if (blog) {
 
-  <div class="w-full max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6 overflow-y-auto">
+  <div
+    class="w-full max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6 overflow-y-auto"
+  >
     <div class="flex items-center mb-4">
       <span class="badge badge-primary mr-2"
         >Autor del blog: {{ blog.author }}</span
@@ -14,7 +16,14 @@
     <div [innerHTML]="content.html"></div>
     }
 
-    <app-liking-system [blogId]="blogId"></app-liking-system>
+    <app-liking-system
+      [blogId]="blogId"
+      [likeCount]="blog.likes"
+      [dislikeCount]="blog.dislikes"
+      (likesChanged)="onLikesChanged()"
+    ></app-liking-system>
+
+
     <app-comment-section
       [blogId]="blogId"
       [comments]="comments"

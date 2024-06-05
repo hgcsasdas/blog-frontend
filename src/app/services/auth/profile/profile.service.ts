@@ -13,23 +13,23 @@ export class ProfileService {
   constructor(private http: HttpClient) {}
 
   getProfile(): Observable<any> {
-    return this.http.post<any>(`${this.urlHost}/find-user`, {
-      usernameToSearch: sessionStorage.getItem('username') || '',
-      usernameSearching: sessionStorage.getItem('username') || '',
-    }).pipe (
-      (response) => {
-        console.log('Profile:', response);
-
+    return this.http
+      .post<any>(`${this.urlHost}/find-user`, {
+        usernameToSearch: sessionStorage.getItem('username') || '',
+        usernameSearching: sessionStorage.getItem('username') || '',
+      })
+      .pipe((response) => {
+        response.subscribe((data) => {
+          sessionStorage.setItem('token', data.token);
+          return data.dto;
+        });
         return response;
-      }
-    );
+      });
   }
 
   getUserBlogs(user: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.apiUrl}/user/${user}`).pipe (
-      (blogs) => {
-        return blogs;
-      }
-    );;
+    return this.http.get<any[]>(`${this.apiUrl}/user/${user}`).pipe((blogs) => {
+      return blogs;
+    });
   }
 }
