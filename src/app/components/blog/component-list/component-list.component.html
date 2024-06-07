@@ -1,13 +1,32 @@
 <!-- component-list.component.html -->
-<h3 class="text-lg font-semibold">Canvas Components</h3>
+<h3 class="text-lg font-semibold">Componentes del blog</h3>
 <div
   cdkDropList
-  class="list border-2 border-dashed border-gray-300 p-4 h-full overflow-auto"
+  class="list border-2 border-dashed border-gray-300 p-4 h-[70dvh] overflow-auto"
   (cdkDropListDropped)="drop($event)"
 >
   @for (component of canvasComponents; track component) {
   <div class="flex mb-2 p-2 bg-gray-100 rounded cursor-pointer" cdkDrag>
-    {{ component.type }}
+    {{ component.tipo }}
+    <button
+      class="ml-2 text-red-500 hover:text-red-700"
+      (click)="onRemoveComponent(component.id)"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M6 18L18 6M6 6l12 12"
+        />
+      </svg>
+    </button>
   </div>
-  }
+}
 </div>

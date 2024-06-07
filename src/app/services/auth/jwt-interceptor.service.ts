@@ -21,6 +21,7 @@ export class JwtInterceptorService implements HttpInterceptor {
     const token: String = this.loginService.userToken;
 
     if (token) {
+
       req = req.clone({
         setHeaders: {
           'Content-Type': 'application/json; charset=utf-8',
@@ -28,6 +29,7 @@ export class JwtInterceptorService implements HttpInterceptor {
           Authorization: `Bearer ${token}`,
         },
       });
+
     } else {
     }
     return next.handle(req);

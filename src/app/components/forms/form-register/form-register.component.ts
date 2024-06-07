@@ -1,10 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { RegisterService } from '../../../services/auth/register.service';
 import { RegisterRequest } from '../../../services/auth/requests/registerRequest';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { LoadingFormsComponent } from '../../loaders/loading-forms/loading-forms.component';
 
 @Component({
   selector: 'app-form-register',
@@ -15,6 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
     RouterLink,
     RouterLinkActive,
     HttpClientModule,
+    LoadingFormsComponent,
   ],
   templateUrl: './form-register.component.html',
   styleUrls: ['./form-register.component.css'],
@@ -27,6 +34,7 @@ export class FormRegisterComponent implements OnInit {
     password: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
   });
+  isLoading: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,6 +46,8 @@ export class FormRegisterComponent implements OnInit {
   register() {
     this.errorMessage = '';
     this.successMessage = '';
+    this.isLoading = true;
+
     if (this.registerForm.valid) {
       this.errorMessage = '';
       this.registerService
@@ -47,12 +57,16 @@ export class FormRegisterComponent implements OnInit {
             if (response.register) {
               this.successMessage = response.message;
               this.registerForm.reset();
+              this.isLoading = false;
             } else {
+              this.isLoading = false;
               this.errorMessage = response.message;
             }
           },
           error: (error) => {
             console.error(error);
+            this.isLoading = false;
+
             this.errorMessage =
               'Error al registrar. Por favor, inténtalo de nuevo.';
           },

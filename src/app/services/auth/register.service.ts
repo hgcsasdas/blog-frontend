@@ -10,6 +10,7 @@ import {
 } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { RegisterRequest } from './requests/registerRequest';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -20,7 +21,7 @@ export class RegisterService {
   );
   currentUserData: BehaviorSubject<String> = new BehaviorSubject<String>('');
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     this.currentUserLoginOn = new BehaviorSubject<boolean>(
       sessionStorage.getItem('token') != null
     );
@@ -30,8 +31,6 @@ export class RegisterService {
   }
 
   register(credentials: RegisterRequest): Observable<any> {
-    console.log(credentials);
-
     return this.http
       .post<any>(environment.urlHost + 'auth/register', credentials)
       .pipe(
@@ -49,6 +48,7 @@ export class RegisterService {
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('username');
     this.currentUserLoginOn.next(false);
+    this.router.navigate(['/']);
   }
 
   private handleError(error: HttpErrorResponse) {

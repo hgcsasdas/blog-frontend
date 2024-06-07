@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
+import { LoginService } from '../auth/login.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,10 +11,21 @@ import { environment } from '../../../environments/environment';
 export class LikingSystemService {
   private baseUrl = environment.urlApi + 'users/api/blogs/likes';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private loginService: LoginService) {}
 
   likeBlog(username: string, blogId: string): Observable<string> {
+    console.log('likeBlog', username, blogId);
+
     return this.http.post(`${this.baseUrl}/like`, { username, blogId }, { responseType: 'text' }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getUserBlogInteraction(username: string, blogId: string): Observable<{ liked: boolean, disliked: boolean }> {
+    return this.http.post<{ liked: boolean, disliked: boolean }>(
+      `${this.baseUrl}/interaction`,
+      { username, blogId }
+    ).pipe(
       catchError(this.handleError)
     );
   }

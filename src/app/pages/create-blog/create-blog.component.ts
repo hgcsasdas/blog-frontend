@@ -1,11 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  CdkDrag,
-  CdkDragDrop,
-  CdkDropList,
-  moveItemInArray,
-  transferArrayItem,
-} from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 import { ComponentListComponent } from '../../components/blog/component-list/component-list.component';
 import { ComponentMenuComponent } from '../../components/blog/component-menu/component-menu.component';
 import { CanvasComponent } from '../../components/blog/canvas/canvas.component';
@@ -14,6 +8,9 @@ import { BlogDto } from '../../services/blogs/DTO/BlogDto';
 import { BlogService } from '../../services/blogs/blog.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { TutorialPopupComponent } from '../../components/blog/tutorial-popup/tutorial-popup.component';
+import { ErrorComponent } from '../../components/alerts/error/error.component';
+import { SuccessComponent } from '../../components/alerts/success/success.component';
 
 @Component({
   selector: 'app-create-blog',
@@ -25,6 +22,9 @@ import { Router, ActivatedRoute } from '@angular/router';
     ComponentMenuComponent,
     CanvasComponent,
     ReactiveFormsModule,
+    TutorialPopupComponent,
+    SuccessComponent,
+    ErrorComponent,
   ],
   templateUrl: './create-blog.component.html',
   styleUrls: ['./create-blog.component.css'],
@@ -34,6 +34,9 @@ export class CreateBlogComponent implements OnInit {
   blogForm: FormGroup;
   isEditMode: boolean = false;
   blogId: string | null = null;
+  isSuccess: boolean = true;
+  showMessage: boolean = false;
+  msg: string = '';
 
   constructor(
     private blogService: BlogService,
@@ -47,7 +50,7 @@ export class CreateBlogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params) => {
       const id = params.get('idBlog');
       if (id) {
         this.isEditMode = true;
@@ -59,16 +62,13 @@ export class CreateBlogComponent implements OnInit {
 
   loadBlog(id: string): void {
     this.blogService.getBlogById(id).subscribe({
-
       next: (blog) => {
-        console.log('Blog:', blog);
-
         this.blogForm.patchValue({ title: blog.title });
         this.canvasComponents = JSON.parse(blog.content);
       },
       error: (error) => {
         console.error('Error loading blog:', error);
-      }
+      },
     });
   }
 
@@ -76,19 +76,37 @@ export class CreateBlogComponent implements OnInit {
     this.canvasComponents.push(component);
   }
 
+  removeComponent(id: string) {
+    this.canvasComponents = this.canvasComponents.filter(
+      (component) => component.id !== id
+    );
+  }
+
   saveOrUpdateBlog() {
     const blogDto: BlogDto = {
       title: this.blogForm.value.title,
       author: sessionStorage.getItem('username') || '',
       content: JSON.stringify(this.canvasComponents),
+      token: sessionStorage.getItem('token') || '',
     };
 
     if (this.isEditMode && this.blogId) {
       this.blogService.updateBlog(this.blogId, blogDto).subscribe({
         next: (response) => {
           if (response.done) {
-            console.log('Blog actualizado con éxito');
+            this.isSuccess = true;
+            this.msg = response.message;
+            this.showMessage = true;
+            setTimeout(() => {
+              this.showMessage = false;
+            }, 2000);
           } else {
+            this.isSuccess = false;
+            this.msg = response.message;
+            this.showMessage = true;
+            setTimeout(() => {
+              this.showMessage = false;
+            }, 2000);
             console.error('Error actualizando el blog:', response.message);
           }
         },
@@ -100,9 +118,20 @@ export class CreateBlogComponent implements OnInit {
       this.blogService.createBlog(blogDto).subscribe({
         next: (response) => {
           if (response.done) {
-            console.log('Blog registrado con éxito');
+            this.isSuccess = true;
+            this.msg = response.message;
+            this.showMessage = true;
+            setTimeout(() => {
+              this.showMessage = false;
+            }, 2000);
           } else {
-            console.error('Error registrando el blog:', response.message);
+            this.isSuccess = false;
+            this.msg = response.message;
+            this.showMessage = true;
+            setTimeout(() => {
+              this.showMessage = false;
+            }, 2000);
+            console.error('Error creando el blog:', response.message);
           }
         },
         error: (error) => {
@@ -111,4 +140,5 @@ export class CreateBlogComponent implements OnInit {
       });
     }
   }
+
 }

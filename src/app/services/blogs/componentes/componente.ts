@@ -1,24 +1,45 @@
 export interface Componente {
-  type: string;
+  tipo: string;
   id: string;
-  capabilities: string;
+  capacidades: string;
   html: string;
 }
 
 export const COMPONENT_TYPES: Omit<Componente, 'id'>[] = [
   {
-    type: 'Title',
-    capabilities: 'Displays a title',
-    html: ' <h2 class="text-2xl font-medium indent-2 py-36">Title</h2>',
+    tipo: 'Titulo',
+    capacidades: 'Muestra un título',
+    html: '<h2 class="text-2xl font-medium indent-2 py-36">Título</h2>',
   },
   {
-    type: 'Text',
-    capabilities: 'Texto básico',
-    html: ' <p class="font-light indent-2 my-4">Text</p>',
+    tipo: 'Texto',
+    capacidades: 'Muestra texto básico',
+    html: '<p class="font-light indent-2 my-4">Texto</p>',
   },
   {
-    type: 'List',
-    capabilities: 'Displays a list',
-    html: '<ul class="list-disc list-inside my-4"><li>List item 1</li><li>List item 2</li></ul>'
+    tipo: 'Lista',
+    capacidades: 'Muestra una lista',
+    html: '<ul class="list-disc list-inside my-4"><li>Elemento de lista 1</li><li>Elemento de lista 2</li></ul>',
+  },
+  {
+    tipo: 'Cita',
+    capacidades: 'Muestra una cita',
+    html: '<blockquote class="border-l-4 border-gray-500 italic my-4 pl-4">Cita</blockquote>',
+  },
+
+  {
+    tipo: 'Divisor',
+    capacidades: 'Muestra un divisor horizontal',
+    html: '<hr class="my-4" />',
+  },
+  {
+    tipo: 'Enlace',
+    capacidades: 'Muestra un hipervínculo',
+    html: '<a href="url" class="text-blue-500 underline my-4">Texto del enlace</a>',
+  },
+  {
+    tipo: 'Alerta',
+    capacidades: 'Muestra un cuadro de alerta',
+    html: '<div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 p-4 m-4"><p class="font-bold">Alerta alerta</p><p>Escribe aquí sobre de qué quieres avisar.</p></div>',
   },
 ];

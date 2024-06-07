@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { LikingSystemService } from '../../../services/blogs/liking-system.service';
 
 @Component({
@@ -8,6 +8,9 @@ import { LikingSystemService } from '../../../services/blogs/liking-system.servi
   styleUrls: ['./liking-system.component.css'],
 })
 export class LikingSystemComponent implements OnInit {
+  @Output() likesChanged = new EventEmitter<void>();
+  @Input() likeCount: any = 0;
+  @Input() dislikeCount: any = 0;
   @Input() blogId!: string;
   username!: string;
   liked: boolean = false;
@@ -22,7 +25,10 @@ export class LikingSystemComponent implements OnInit {
   toggleLike() {
     if (this.liked) {
       this.likingService.unlikeBlog(this.username, this.blogId).subscribe(
-        () => (this.liked = false),
+        () => {
+          this.liked = false;
+          this.likesChanged.emit(); // Emit likesChanged event
+        },
         (error) => console.error('Error unliking blog:', error)
       );
     } else {
@@ -30,6 +36,7 @@ export class LikingSystemComponent implements OnInit {
         () => {
           this.liked = true;
           if (this.disliked) this.disliked = false;
+          this.likesChanged.emit(); // Emit likesChanged event
         },
         (error) => console.error('Error liking blog:', error)
       );
@@ -39,7 +46,10 @@ export class LikingSystemComponent implements OnInit {
   toggleDislike() {
     if (this.disliked) {
       this.likingService.undislikeBlog(this.username, this.blogId).subscribe(
-        () => (this.disliked = false),
+        () => {
+          this.disliked = false;
+          this.likesChanged.emit(); // Emit likesChanged event
+        },
         (error) => console.error('Error undisliking blog:', error)
       );
     } else {
@@ -47,6 +57,7 @@ export class LikingSystemComponent implements OnInit {
         () => {
           this.disliked = true;
           if (this.liked) this.liked = false; // Remove like if it was present
+          this.likesChanged.emit(); // Emit likesChanged event
         },
         (error) => console.error('Error disliking blog:', error)
       );

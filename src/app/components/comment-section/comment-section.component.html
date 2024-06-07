@@ -75,3 +75,12 @@
     </form>
   </div>
 </div>
+@if (isSuccess && showMessage) {
+  <div class="toast">
+    <app-success [msg]="msg"></app-success>
+  </div>
+  } @else if (!isSuccess && showMessage){
+  <div class="toast">
+    <app-error [msg]="msg"></app-error>
+  </div>
+  }

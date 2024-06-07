@@ -4,15 +4,19 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { CommentCUDResponse } from '../responses/CommentCUDResponse';
+import { LoginService } from '../auth/login.service';
 interface CommentDto {
   author: string;
   content: string;
+  token: string;
 }
 
 interface CommentUpdateDto {
   content: string;
   author: string;
   blogId: string;
+  token: string;
+
 }
 
 interface CommentDeleteDto {
@@ -26,14 +30,13 @@ interface CommentDeleteDto {
 export class CommentService {
   private baseUrl = environment.urlApi + 'users/api/blogs/comments';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private loginService: LoginService) {}
 
   addCommentToBlog(
     blogId: string,
     commentDto: CommentDto
   ): Observable<CommentCUDResponse> {
-    console.log('Adding comment:', commentDto);
-    console.log('Blog ID:', blogId);
+
 
     return this.http
       .post<CommentCUDResponse>(`${this.baseUrl}/${blogId}`, commentDto)
@@ -50,6 +53,7 @@ export class CommentService {
       content: content,
       author: author,
       blogId: blogId,
+      token: sessionStorage.getItem('token') || '',
     };
     return this.http
       .put<CommentCUDResponse>(`${this.baseUrl}/${commentId}`, commentUpdateDto)
