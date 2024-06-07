@@ -2,7 +2,7 @@ export const environment = {
   production: false,
   // urlHost:'http://localhost:8080/',
   // urlApi: 'http://localhost:8080/hgcBackendBlogs/',
-  urlHost:'https://blog-backend-vxvw.onrender.com',
+  urlHost:'https://blog-backend-vxvw.onrender.com/',
   urlApi: 'https://blog-backend-vxvw.onrender.com/hgcBackendBlogs/',
   firebase: {
     projectId: 'blog-backend-web',
