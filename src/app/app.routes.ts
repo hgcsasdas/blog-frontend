@@ -13,17 +13,32 @@ import { TermsOfUseComponent } from './pages/legal/terms-of-use/terms-of-use.com
 import { PrivacyPolicyComponent } from './pages/legal/privacy-policy/privacy-policy.component';
 import { CookiesPolicyComponent } from './pages/legal/cookies-policy/cookies-policy.component';
 import { unloggedGuard } from './guards/user/unlogged.guard';
+import { ApiDocumentationComponent } from './pages/api-documentation/api-documentation.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
-  { path: 'inicio', component: InicioComponent  },
+  { path: 'inicio', component: InicioComponent },
   { path: 'contacto', component: ContactoComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'api-documentation', component: ApiDocumentationComponent },
+
   { path: 'registro', component: RegistroComponent },
   { path: 'blogs', component: BlogsComponent, canActivate: [unloggedGuard] },
-  { path: 'blog/:blog', component: BlogComponent, canActivate: [unloggedGuard] },
-  { path: 'create-blog', component: CreateBlogComponent, canActivate: [unloggedGuard] },
-  { path: 'create-blog/:idBlog', component: CreateBlogComponent, canActivate: [unloggedGuard] },
+  {
+    path: 'blog/:blog',
+    component: BlogComponent,
+    canActivate: [unloggedGuard],
+  },
+  {
+    path: 'create-blog',
+    component: CreateBlogComponent,
+    canActivate: [unloggedGuard],
+  },
+  {
+    path: 'create-blog/:idBlog',
+    component: CreateBlogComponent,
+    canActivate: [unloggedGuard],
+  },
 
   /* LEGAL */
 
@@ -31,10 +46,17 @@ export const routes: Routes = [
   { path: 'politica-de-privacidad', component: PrivacyPolicyComponent },
   { path: 'politica-de-cookies', component: CookiesPolicyComponent },
 
-
   /**/
   { path: 'admin', component: AdminComponent, canActivate: [unloggedGuard] },
-  { path: 'profile', component: ProfileComponent, canActivate: [unloggedGuard]},
-  { path: 'not-found', component: NotFoundComponent, canActivate: [unloggedGuard] },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [unloggedGuard],
+  },
+  {
+    path: 'not-found',
+    component: NotFoundComponent,
+    canActivate: [unloggedGuard],
+  },
   { path: '**', redirectTo: '/inicio' },
 ];
