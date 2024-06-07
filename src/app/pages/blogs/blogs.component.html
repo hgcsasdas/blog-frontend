@@ -2,8 +2,8 @@
 <app-loading-page></app-loading-page>
 
 } @else {
-<div class="flex flex-col h-[95dvh] p-8">
-  <div class="flex justify-center items-center gap-2">
+  <div class="container h-[85dvh] mx-auto p-6 m-4 bg-base-200 rounded-lg shadow-md overflow-auto">
+    <div class="flex justify-center items-center gap-2">
 
     <input type="text" [(ngModel)]="searchQuery" placeholder="Buscar blogs" class="input input-primary mt-4" />
     <button (click)="filterByTitle()" class="btn btn-primary mt-4">Filtrar por título</button>

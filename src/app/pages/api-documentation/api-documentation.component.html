@@ -1,0 +1,27 @@
+<div class="container h-[85dvh] mx-auto p-6 m-4 bg-base-200 rounded-lg shadow-md overflow-auto">
+  <h1 class="text-3xl font-bold mb-6">API Documentation</h1>
+  <p class="mb-4">To access the blog data, you will need to use your API Key. Below is the guide on how to use it:</p>
+
+  <h2 class="text-2xl font-semibold mt-8 mb-4">Getting All Blogs</h2>
+  <p class="mb-2"><strong>Endpoint:</strong> <code class="bg-gray-200 p-1 rounded">GET /hgcBackendBlogs/users/outer/api/blogs/user/{{ "\{" }}username{{ "\}" }}</code></p>
+  <p class="mb-2"><strong>Headers:</strong></p>
+  <ul class="list-disc list-inside mb-4">
+    <li><strong>API-Key:</strong> Your API key</li>
+  </ul>
+
+  <p class="mb-2"><strong>Example Request:</strong></p>
+  <pre class="bg-gray-100 p-4 rounded mb-4">
+    GET /hgcBackendBlogs/users/outer/api/blogs/user/johndoe
+    Headers: "{{ "\{" }}"API-Key": "your-api-key-here"{{ "\}" }}"
+  </pre>
+
+  <h2 class="text-2xl font-semibold mt-8 mb-4">Response</h2>
+  <p class="mb-2">If the API Key is valid, you will receive a list of blogs associated with the user:</p>
+  <pre class="bg-gray-100 p-4 rounded mb-4">
+    [
+      {{ "\{" }}"id": "blogId1", "title": "Blog Title 1", "author": "johndoe", "content": "Blog content here...", "date": "2024-06-07T00:00:00.000Z"{{ "\}" }},
+      {{ "\{" }}"id": "blogId2", "title": "Blog Title 2", "author": "johndoe", "content": "Blog content here...", "date": "2024-06-07T00:00:00.000Z"{{ "\}" }}
+    ]
+  </pre>
+  <p class="mb-4">If the API Key is invalid, you will receive a 401 Unauthorized status code.</p>
+</div>
