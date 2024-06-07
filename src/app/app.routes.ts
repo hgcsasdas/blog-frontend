@@ -12,17 +12,18 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { TermsOfUseComponent } from './pages/legal/terms-of-use/terms-of-use.component';
 import { PrivacyPolicyComponent } from './pages/legal/privacy-policy/privacy-policy.component';
 import { CookiesPolicyComponent } from './pages/legal/cookies-policy/cookies-policy.component';
+import { unloggedGuard } from './guards/user/unlogged.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/inicio', pathMatch: 'full' },
-  { path: 'inicio', component: InicioComponent },
+  { path: 'inicio', component: InicioComponent  },
   { path: 'contacto', component: ContactoComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registro', component: RegistroComponent },
-  { path: 'blogs', component: BlogsComponent },
-  { path: 'blog/:blog', component: BlogComponent },
-  { path: 'create-blog', component: CreateBlogComponent },
-  { path: 'create-blog/:idBlog', component: CreateBlogComponent },
+  { path: 'blogs', component: BlogsComponent, canActivate: [unloggedGuard] },
+  { path: 'blog/:blog', component: BlogComponent, canActivate: [unloggedGuard] },
+  { path: 'create-blog', component: CreateBlogComponent, canActivate: [unloggedGuard] },
+  { path: 'create-blog/:idBlog', component: CreateBlogComponent, canActivate: [unloggedGuard] },
 
   /* LEGAL */
 
@@ -32,8 +33,8 @@ export const routes: Routes = [
 
 
   /**/
-  { path: 'admin', component: AdminComponent },
-  { path: 'profile', component: ProfileComponent},
-  { path: 'not-found', component: NotFoundComponent },
+  { path: 'admin', component: AdminComponent, canActivate: [unloggedGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [unloggedGuard]},
+  { path: 'not-found', component: NotFoundComponent, canActivate: [unloggedGuard] },
   { path: '**', redirectTo: '/inicio' },
 ];

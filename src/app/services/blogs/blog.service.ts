@@ -19,13 +19,17 @@ import { LoginService } from '../auth/login.service';
 export class BlogService {
   private baseUrl = environment.urlApi + 'users/api/blogs';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private loginService: LoginService) {}
 
   createBlog(blog: BlogDto): Observable<TokenMessageResponse> {
 
     return this.http.post<TokenMessageResponse>(`${this.baseUrl}`, blog).pipe(
       map((tokenMessageResponse: TokenMessageResponse) => {
+        sessionStorage.setItem('token', tokenMessageResponse.token);
+        this.loginService.currentUserData.next(tokenMessageResponse.token);
+
         return {
+
           token: tokenMessageResponse.token,
           message: tokenMessageResponse.message,
           done: tokenMessageResponse.done,
@@ -49,7 +53,6 @@ export class BlogService {
 
   private handleError(error: HttpErrorResponse) {
     // Handle the error here
-    console.log('Error: ', error);
 
     return throwError('An error occurred');
   }
@@ -63,6 +66,8 @@ export class BlogService {
       .put<TokenMessageResponse>(`${this.baseUrl}/${blogId}`, blog)
       .pipe(
         map((tokenMessageResponse: TokenMessageResponse) => {
+          sessionStorage.setItem('token', tokenMessageResponse.token);
+          this.loginService.currentUserData.next(tokenMessageResponse.token);
           return {
             token: tokenMessageResponse.token,
             message: tokenMessageResponse.message,

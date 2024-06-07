@@ -1,5 +1,4 @@
-// component-list.component.ts
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { Componente } from '../../../services/blogs/componentes/componente';
@@ -13,9 +12,13 @@ import { Componente } from '../../../services/blogs/componentes/componente';
 })
 export class ComponentListComponent {
   @Input() canvasComponents: Componente[] = [];
+  @Output() removeComponent = new EventEmitter<string>();
 
   drop(event: CdkDragDrop<Componente[]>) {
     moveItemInArray(this.canvasComponents, event.previousIndex, event.currentIndex);
   }
-}
 
+  onRemoveComponent(id: string) {
+    this.removeComponent.emit(id);
+  }
+}

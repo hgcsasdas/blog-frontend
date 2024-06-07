@@ -1,17 +1,25 @@
 <div class="flex flex-col h-full md:h-[95dvh] p-4">
   <div>
     <form [formGroup]="blogForm">
-      <label for="title" class="block text-lg font-medium text-gray-700">Título del Blog</label>
-      <input id="title" formControlName="title" type="text" placeholder="Titulo del blog"
-        class="mt-1 p-2 block w-full rounded-md border-primary shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+      <label for="title" class="block text-lg font-medium text-gray-700"
+        >Título del Blog</label
+      >
+      <input
+        id="title"
+        formControlName="title"
+        type="text"
+        placeholder="Titulo del blog"
+        class="mt-1 p-2 block w-full rounded-md border-primary shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+      />
     </form>
     <div class="flex justify-between w-full">
-
       <button (click)="saveOrUpdateBlog()" class="btn btn-primary m-4">
-        {{ isEditMode ? 'Actualizar Blog' : 'Guardar Blog' }}
+        {{ isEditMode ? "Actualizar Blog" : "Guardar Blog" }}
       </button>
       <!-- Open the modal using ID.showModal() method -->
-      <button class="btn btn-info m-4" onclick="my_modal_2.showModal()">Abrir tutorial</button>
+      <button class="btn btn-info m-4" onclick="my_modal_2.showModal()">
+        Abrir tutorial
+      </button>
       <dialog id="my_modal_2" class="modal">
         <div class="modal-box">
           <app-tutorial-popup></app-tutorial-popup>
@@ -24,21 +32,31 @@
   </div>
 
   <!-- For mobile devices -->
-  <div class="flex flex-col h-[55%] justify-center items-center w-full md:hidden">
+  <div
+    class="flex flex-col h-[55%] justify-center items-center w-full md:hidden"
+  >
     <div class="flex justify-between w-full">
-      <button class="btn btn-secondary m-4" onclick="my_modal_4.showModal()">Menú items</button>
+      <button class="btn btn-secondary m-4" onclick="my_modal_4.showModal()">
+        Menú items
+      </button>
       <dialog id="my_modal_4" class="modal">
         <div class="modal-box">
-          <app-component-menu (addComponent)="addComponent($event)"></app-component-menu>
+          <app-component-menu
+            (addComponent)="addComponent($event)"
+          ></app-component-menu>
         </div>
         <form method="dialog" class="modal-backdrop">
           <button>close</button>
         </form>
       </dialog>
-      <button class="btn btn-success m-4" onclick="my_modal_3.showModal()">Mis componentes</button>
+      <button class="btn btn-success m-4" onclick="my_modal_3.showModal()">
+        Mis componentes
+      </button>
       <dialog id="my_modal_3" class="modal">
         <div class="modal-box">
-          <app-component-list [canvasComponents]="canvasComponents"></app-component-list>
+          <app-component-list
+            [canvasComponents]="canvasComponents"
+          ></app-component-list>
         </div>
         <form method="dialog" class="modal-backdrop">
           <button>close</button>
@@ -46,20 +64,37 @@
       </dialog>
     </div>
     <div class="w-full h-[20dvh] flex-grow mb-48">
-      <app-canvas [canvasComponents]="canvasComponents" class="h-[20dvh]"></app-canvas>
+      <app-canvas
+        [canvasComponents]="canvasComponents"
+        class="h-[20dvh]"
+      ></app-canvas>
     </div>
   </div>
 
   <!-- For larger screens -->
   <div class="hidden md:flex h-full w-full">
     <div class="w-1/4 p-4">
-      <app-component-menu (addComponent)="addComponent($event)"></app-component-menu>
+      <app-component-menu
+        (addComponent)="addComponent($event)"
+      ></app-component-menu>
     </div>
     <div class="w-1/2 p-4 flex-grow">
       <app-canvas [canvasComponents]="canvasComponents"></app-canvas>
     </div>
     <div class="w-1/4 p-4">
-      <app-component-list [canvasComponents]="canvasComponents"></app-component-list>
+      <app-component-list
+        [canvasComponents]="canvasComponents"
+        (removeComponent)="removeComponent($event)"
+      ></app-component-list>
     </div>
   </div>
 </div>
+@if (isSuccess && showMessage) {
+<div class="toast">
+  <app-success [msg]="msg"></app-success>
+</div>
+} @else if (!isSuccess && showMessage){
+<div class="toast">
+  <app-error [msg]="msg"></app-error>
+</div>
+}

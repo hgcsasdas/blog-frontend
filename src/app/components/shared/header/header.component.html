@@ -34,47 +34,62 @@
   <div class="drawer-side">
     <label for="my-drawer" class="drawer-overlay"></label>
     <ul class="menu p-4 w-80 min-h-full bg-primary2 text-opposite2">
+
       <li>
         <a
           routerLink="/inicio"
           class="btn btn-ghost normal-case text-xl text-opposite"
           >Inicio</a
         >
-      <li>
-        <a
-          routerLink="/admin"
-          class="btn btn-ghost normal-case text-xl text-opposite"
-          >Admin</a
-        >
       </li>
-      <li>
-        <a
-          routerLink="/blogs"
-          class="btn btn-ghost normal-case text-xl text-opposite"
-          >Blogs</a
-        >
-      </li>
-      <li>
-        <a
-          routerLink="/create-blog"
-          class="btn btn-ghost normal-case text-xl text-opposite"
-          >Crear blog</a
-        >
-      </li>
-      <li>
-        <a
-          routerLink="/profile"
-          class="btn btn-ghost normal-case text-xl text-opposite"
-          >Perfil</a
-        >
-      </li>
-      <li>
-        <a
-          (click)="logout()"
-          class="btn btn-ghost normal-case text-xl text-opposite bottom-0"
-          >logout</a
-        >
-      </li>
+
+      @if (!isLoggedIn) {
+        <li>
+          <a
+            routerLink="/registro"
+            class="btn btn-ghost normal-case text-xl text-opposite"
+            >Registro</a
+          >
+        </li>
+
+      } @else {
+        <li>
+          <a
+            routerLink="/blogs"
+            class="btn btn-ghost normal-case text-xl text-opposite"
+            >Blogs</a
+          >
+        </li>
+        <li>
+          <a
+            routerLink="/create-blog"
+            class="btn btn-ghost normal-case text-xl text-opposite"
+            >Crear blog</a
+          >
+        </li>
+        <li>
+          <a
+            routerLink="/profile"
+            class="btn btn-ghost normal-case text-xl text-opposite"
+            >Perfil</a
+          >
+        </li>
+                <!-- <li>
+          <a
+            routerLink="/admin"
+            class="btn btn-ghost normal-case text-xl text-opposite"
+            >Admin</a
+          >
+        </li> -->
+
+        <li>
+          <a
+            (click)="logout()"
+            class="btn btn-ghost normal-case text-xl text-opposite bottom-0"
+            >logout</a
+          >
+        </li>
+      }
     </ul>
   </div>
 </div>
